@@ -9,7 +9,7 @@
 */
 int _myhistory(info_t *info)
 {
-list_print(info->history);
+print_list(info->history);
 return (0);
 }
 
@@ -58,12 +58,12 @@ return (add_node_end(&(info->alias), str, 0) == NULL);
 }
 
 /**
-* alias_print - prints an alias string
+* print_alias - prints an alias string
 * @node: the alias node
 *
 * Return: Always 0 on success, 1 on error
 */
-int alias_print(list_t *node)
+int print_alias(list_t *node)
 {
 char *p = NULL, *a = NULL;
 
@@ -97,7 +97,7 @@ if (info->argc == 1)
 node = info->alias;
 while (node)
 {
-alias_print(node);
+print_alias(node);
 node = node->next;
 }
 return (0);
@@ -108,7 +108,7 @@ p = _strchr(info->argv[i], '=');
 if (p)
 set_alias(info, info->argv[i]);
 else
-alias_print(node_starts_with(info->alias, info->argv[i], '='));
+print_alias(node_starts_with(info->alias, info->argv[i], '='));
 }
 
 return (0);

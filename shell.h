@@ -34,7 +34,7 @@
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 
-extern char **environ;
+extern char **my_environ;
 
 
 /**
@@ -61,11 +61,11 @@ struct liststr *next;
 * @err_num: the error code for exit()s
 * @linecount_flag: if on count this line of input
 * @fname: the program filename
-* @env: linked list local copy of environ
-* @environ: custom modified copy of environ from LL env
+* @env: linked list local copy of my_environ
+* @my_environ: custom modified copy of my_environ from LL env
 * @history: the history node
 * @alias: the alias node
-* @env_changed: on if environ was changed
+* @env_changed: on if my_environ was changed
 * @status: the return status of the last exec'd command
 * @cmd_buf: address of pointer to cmd_buf, on if chaining
 * @cmd_buf_type: CMD_type ||, &&, ;
@@ -85,7 +85,7 @@ char *fname;
 list_t *env;
 list_t *history;
 list_t *alias;
-char **environ;
+char **my_environ;
 int env_changed;
 int status;
 
@@ -100,20 +100,20 @@ int histcount;
 0, 0, 0}
 
 /**
-* struct builtin - contains a builtin string and related function
-* @type: the builtin command flag
+* struct my_builtin - contains a my_builtin string and related function
+* @type: the my_builtin command flag
 * @func: the function
 */
-typedef struct builtin
+typedef struct my_builtin
 {
 char *type;
 int (*func)(info_t *);
-} builtin_table;
+} my_builtin_table;
 
 
 /* toem_shloop.c */
 int hsh(info_t *, char **);
-int find_builtin(info_t *);
+int find_my_builtin(info_t *);
 void find_cmd(info_t *);
 void fork_cmd(info_t *);
 
@@ -160,11 +160,11 @@ void *_realloc(void *, unsigned int, unsigned int);
 /* toem_memory.c */
 int bfree(void **);
 
-/* toem_atoi.c */
+/* toematoi_at.c */
 int interactive(info_t *);
 int is_delim(char, char *);
 int _isalpha(int);
-int _atoi(char *);
+int atoi_at(char *);
 
 /* toem_errors1.c */
 int _erratoi(char *);
@@ -173,12 +173,12 @@ int print_d(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
 
-/* toem_builtin.c */
-int _myexit(info_t *);
+/* toem_my_builtin.c */
+int myexit(info_t *);
 int _mycd(info_t *);
 int _myhelp(info_t *);
 
-/* toem_builtin1.c */
+/* toem_my_builtin1.c */
 int _myhistory(info_t *);
 int _myalias(info_t *);
 
@@ -192,7 +192,7 @@ void clear_info(info_t *);
 void set_info(info_t *, char **);
 void free_info(info_t *, int);
 
-/* toem_environ.c */
+/* toem_my_environ.c */
 char *_getenv(info_t *, const char *);
 int _myenv(info_t *);
 int _mysetenv(info_t *);
@@ -200,7 +200,7 @@ int _myunsetenv(info_t *);
 int populate_env_list(info_t *);
 
 /* toem_getenv.c */
-char **get_environ(info_t *);
+char **get_my_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
@@ -214,14 +214,14 @@ int renumber_history(info_t *info);
 /* toem_lists.c */
 list_t *add_node(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
+size_t list_print_str(const list_t *);
 int delete_node_at_index(list_t **, unsigned int);
 void free_list(list_t **);
 
 /* toem_lists1.c */
 size_t list_len(const list_t *);
 char **list_to_strings(list_t *);
-size_t print_list(const list_t *);
+size_t list_print(const list_t *);
 list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 

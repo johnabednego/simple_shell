@@ -1,20 +1,20 @@
 #include "shell.h"
 
 /**
-* get_environ - returns the string array copy of our environ
+* get_my_environ - returns the string array copy of our my_environ
 * @info: Structure containing potential arguments. Used to maintain
 *          constant function prototype.
 * Return: Always 0
 */
-char **get_environ(info_t *info)
+char **get_my_environ(info_t *info)
 {
-if (!info->environ || info->env_changed)
+if (!info->my_environ || info->env_changed)
 {
-info->environ = list_to_strings(info->env);
+info->my_environ = list_to_strings(info->env);
 info->env_changed = 0;
 }
 
-return (info->environ);
+return (info->my_environ);
 }
 
 /**
@@ -50,7 +50,7 @@ return (info->env_changed);
 }
 
 /**
-* _setenv - Initialize a new environment variable,
+* _setenv - Initialize a new my_environment variable,
 *             or modify an existing one
 * @info: Structure containing potential arguments. Used to maintain
 *        constant function prototype.

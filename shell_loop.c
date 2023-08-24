@@ -138,7 +138,7 @@ return;
 }
 if (child_pid == 0)
 {
-if (execve(info->path, info->argv, get_my_environ(info)) == -1)
+if (execve(info->path, info->argv, get_environ(info)) == -1)
 {
 free_info(info, 1);
 if (errno == EACCES)

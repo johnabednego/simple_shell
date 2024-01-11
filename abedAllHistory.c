@@ -14,13 +14,13 @@ char *get_abedAllHistory_file(info_t *info)
 	dir = abedabedEnvGet(info, "HOME=");
 	if (!dir)
 		return (NULL);
-	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
+	buf = malloc(sizeof(char) * (abedLENstr(dir) + abedLENstr(HIST_FILE) + 2));
 	if (!buf)
 		return (NULL);
 	buf[0] = 0;
-	_strcpy(buf, dir);
-	_strcat(buf, "/");
-	_strcat(buf, HIST_FILE);
+	abedCPYstrInString1(buf, dir);
+	abedCATstrInString(buf, "/");
+	abedCATstrInString(buf, HIST_FILE);
 	return (buf);
 }
 

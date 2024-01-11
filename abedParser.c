@@ -57,7 +57,7 @@ char *abedPathLooker(info_t *info, char *pathstr, char *cmd)
 
 	if (!pathstr)
 		return (NULL);
-	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
+	if ((abedLENstr(cmd) > 2) && abedWithStarts(cmd, "./"))
 	{
 		if (abedCMDIsActive(info, cmd))
 			return (cmd);
@@ -68,11 +68,11 @@ char *abedPathLooker(info_t *info, char *pathstr, char *cmd)
 		{
 			path = abedCHADuP(pathstr, curr_pos, i);
 			if (!*path)
-				_strcat(path, cmd);
+				abedCATstrInString(path, cmd);
 			else
 			{
-				_strcat(path, "/");
-				_strcat(path, cmd);
+				abedCATstrInString(path, "/");
+				abedCATstrInString(path, cmd);
 			}
 			if (abedCMDIsActive(info, path))
 				return (path);

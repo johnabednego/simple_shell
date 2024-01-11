@@ -16,7 +16,7 @@ int hsh(info_t *info, char **av)
 	{
 		abedInfoClear(info);
 		if (interactive(info))
-			_puts("$ ");
+			abedAllPutInString1("$ ");
 		abedCharEput(BUF_FLUSH);
 		r = abedInput_Get(info);
 		if (r != -1)
@@ -24,10 +24,10 @@ int hsh(info_t *info, char **av)
 			abedInfoSet(info, av);
 			abedin_ret = find_abedin(info);
 			if (abedin_ret == -1)
-				find_cmd(info);
+				abedCMD_finder(info);
 		}
 		else if (interactive(info))
-			_putchar('\n');
+			abedCHARPutInString1('\n');
 		abedInfoFree(info, 0);
 	}
 	write_abedAllHistory(info);
@@ -68,7 +68,7 @@ int find_abedin(info_t *info)
 	};
 
 	for (i = 0; abedintbl[i].type; i++)
-		if (_strcmp(info->argv[0], abedintbl[i].type) == 0)
+		if (abedCMPstr(info->argv[0], abedintbl[i].type) == 0)
 		{
 			info->line_count++;
 			built_in_ret = abedintbl[i].func(info);
@@ -78,12 +78,12 @@ int find_abedin(info_t *info)
 }
 
 /**
- * find_cmd - finds a command in PATH
+ * abedCMD_finder - finds a command in PATH
  * @info: the parameter & return info struct
  *
  * Return: void
  */
-void find_cmd(info_t *info)
+void abedCMD_finder(info_t *info)
 {
 	char *path = NULL;
 	int i, k;
@@ -104,13 +104,13 @@ void find_cmd(info_t *info)
 	if (path)
 	{
 		info->path = path;
-		fork_cmd(info);
+		abedCMD_forker(info);
 	}
 	else
 	{
 		if ((interactive(info) || abedabedEnvGet(info, "PATH=")
 			|| info->argv[0][0] == '/') && abedCMDIsActive(info, info->argv[0]))
-			fork_cmd(info);
+			abedCMD_forker(info);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
@@ -120,12 +120,12 @@ void find_cmd(info_t *info)
 }
 
 /**
- * fork_cmd - forks a an exec thread to run cmd
+ * abedCMD_forker - forks a an exec thread to run cmd
  * @info: the parameter & return info struct
  *
  * Return: void
  */
-void fork_cmd(info_t *info)
+void abedCMD_forker(info_t *info)
 {
 	pid_t child_pid;
 

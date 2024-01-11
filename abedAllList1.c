@@ -38,7 +38,7 @@ char **abedStringToListReverse(list_t *head)
 		return (NULL);
 	for (i = 0; node; node = node->next, i++)
 	{
-		str = malloc(_strlen(node->str) + 1);
+		str = malloc(abedLENstr(node->str) + 1);
 		if (!str)
 		{
 			for (j = 0; j < i; j++)
@@ -47,7 +47,7 @@ char **abedStringToListReverse(list_t *head)
 			return (NULL);
 		}
 
-		str = _strcpy(str, node->str);
+		str = abedCPYstrInString1(str, node->str);
 		strs[i] = str;
 	}
 	strs[i] = NULL;
@@ -67,11 +67,11 @@ size_t abedList_Print(const list_t *h)
 
 	while (h)
 	{
-		_puts(abedNumberConvert(h->num, 10, 0));
-		_putchar(':');
-		_putchar(' ');
-		_puts(h->str ? h->str : "(nil)");
-		_puts("\n");
+		abedAllPutInString1(abedNumberConvert(h->num, 10, 0));
+		abedCHARPutInString1(':');
+		abedCHARPutInString1(' ');
+		abedAllPutInString1(h->str ? h->str : "(nil)");
+		abedAllPutInString1("\n");
 		h = h->next;
 		i++;
 	}
@@ -92,7 +92,7 @@ list_t *abedWithNodeStart(list_t *node, char *prefix, char c)
 
 	while (node)
 	{
-		p = starts_with(node->str, prefix);
+		p = abedWithStarts(node->str, prefix);
 		if (p && ((c == -1) || (*p == c)))
 			return (node);
 		node = node->next;

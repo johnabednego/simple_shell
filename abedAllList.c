@@ -21,7 +21,7 @@ list_t *abedNodeAdd(list_t **head, const char *str, int num)
 	new_head->num = num;
 	if (str)
 	{
-		new_head->str = _strdup(str);
+		new_head->str = abedDUPstrInString1(str);
 		if (!new_head->str)
 		{
 			free(new_head);
@@ -56,7 +56,7 @@ list_t *abedNodeAdd_end(list_t **head, const char *str, int num)
 	new_node->num = num;
 	if (str)
 	{
-		new_node->str = _strdup(str);
+		new_node->str = abedDUPstrInString1(str);
 		if (!new_node->str)
 		{
 			free(new_node);
@@ -86,8 +86,8 @@ size_t abedListSTRPrint(const list_t *h)
 
 	while (h)
 	{
-		_puts(h->str ? h->str : "(nil)");
-		_puts("\n");
+		abedAllPutInString1(h->str ? h->str : "(nil)");
+		abedAllPutInString1("\n");
 		h = h->next;
 		i++;
 	}

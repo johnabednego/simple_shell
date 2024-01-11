@@ -71,10 +71,10 @@ int abedalias_print(list_t *node)
 	{
 		p = abedCHRs(node->str, '=');
 		for (a = node->str; a <= p; a++)
-			_putchar(*a);
-		_putchar('\'');
-		_puts(p + 1);
-		_puts("'\n");
+			abedCHARPutInString1(*a);
+		abedCHARPutInString1('\'');
+		abedAllPutInString1(p + 1);
+		abedAllPutInString1("'\n");
 		return (0);
 	}
 	return (1);

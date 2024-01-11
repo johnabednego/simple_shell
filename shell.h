@@ -114,8 +114,8 @@ typedef struct abedin
 /* toem_shloop.c */
 int hsh(info_t *, char **);
 int find_abedin(info_t *);
-void find_cmd(info_t *);
-void fork_cmd(info_t *);
+void abedCMD_finder(info_t *);
+void abedCMD_forker(info_t *);
 
 /* toem_abedParser.c */
 int abedCMDIsActive(info_t *, char *);
@@ -132,25 +132,25 @@ int abedFdput(char c, int fd);
 int abedSFDput(char *str, int fd);
 
 /* toem_string.c */
-int _strlen(char *);
-int _strcmp(char *, char *);
-char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+int abedLENstr(char *);
+int abedCMPstr(char *, char *);
+char *abedWithStarts(const char *, const char *);
+char *abedCATstrInString(char *, char *);
 
-/* toem_string1.c */
-char *_strcpy(char *, char *);
-char *_strdup(const char *);
-void _puts(char *);
-int _putchar(char);
+/* toem_abedString1.c */
+char *abedCPYstrInString1(char *, char *);
+char *abedDUPstrInString1(const char *);
+void abedAllPutInString1(char *);
+int abedCHARPutInString1(char);
 
 /* toem_abedAllExits.c */
 char *abedCPYs(char *, char *, int);
 char *abedCATs(char *, char *, int);
 char *abedCHRs(char *, char);
 
-/* toem_tokenizer.c */
-char **strtow(char *, char *);
-char **strtow2(char *, char);
+/* toem_abedTokenizer.c */
+char **abedTOWstrInTokenizer(char *, char *);
+char **abedTOWstrInTokenizer2(char *, char);
 
 /* toem_abedLocReal.c */
 char *_memset(char *, char, unsigned int);
@@ -225,11 +225,11 @@ size_t abedList_Print(const list_t *);
 list_t *abedWithNodeStart(list_t *, char *, char);
 ssize_t abedGetIndexAtNode(list_t *, list_t *);
 
-/* toem_vars.c */
-int is_chain(info_t *, char *, size_t *);
-void check_chain(info_t *, char *, size_t *, size_t, size_t);
-int replace_alias(info_t *);
-int replace_vars(info_t *);
-int replace_string(char **, char *);
+/* toem_abedVars.c */
+int abedChainIsInVars(info_t *, char *, size_t *);
+void abedChainCheckInVars(info_t *, char *, size_t *, size_t, size_t);
+int abedAliasReplaceInVars(info_t *);
+int replace_abedVars(info_t *);
+int abedStringReplaceInVars(char **, char *);
 
 #endif

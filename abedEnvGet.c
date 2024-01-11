@@ -35,7 +35,7 @@ int abedEnvUnset(info_t *info, char *var)
 
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = abedWithStarts(node->str, var);
 		if (p && *p == '=')
 		{
 			info->env_changed = abedIndexNodeDelete(&(info->env), i);
@@ -67,16 +67,16 @@ int abedEnvSet(info_t *info, char *var, char *value)
 	if (!var || !value)
 		return (0);
 
-	buf = malloc(_strlen(var) + _strlen(value) + 2);
+	buf = malloc(abedLENstr(var) + abedLENstr(value) + 2);
 	if (!buf)
 		return (1);
-	_strcpy(buf, var);
-	_strcat(buf, "=");
-	_strcat(buf, value);
+	abedCPYstrInString1(buf, var);
+	abedCATstrInString(buf, "=");
+	abedCATstrInString(buf, value);
 	node = info->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = abedWithStarts(node->str, var);
 		if (p && *p == '=')
 		{
 			free(node->str);

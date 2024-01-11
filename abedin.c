@@ -42,7 +42,7 @@ int abed_cd(info_t *info)
 
 	s = getcwd(buffer, 1024);
 	if (!s)
-		_puts("TODO: >>getcwd failure emsg here<<\n");
+		abedAllPutInString1("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
 		dir = abedabedEnvGet(info, "HOME=");
@@ -52,15 +52,15 @@ int abed_cd(info_t *info)
 		else
 			chdir_ret = chdir(dir);
 	}
-	else if (_strcmp(info->argv[1], "-") == 0)
+	else if (abedCMPstr(info->argv[1], "-") == 0)
 	{
 		if (!abedabedEnvGet(info, "OLDPWD="))
 		{
-			_puts(s);
-			_putchar('\n');
+			abedAllPutInString1(s);
+			abedCHARPutInString1('\n');
 			return (1);
 		}
-		_puts(abedabedEnvGet(info, "OLDPWD=")), _putchar('\n');
+		abedAllPutInString1(abedabedEnvGet(info, "OLDPWD=")), abedCHARPutInString1('\n');
 		chdir_ret = /* TODO: what should this be? */
 			chdir((dir = abedabedEnvGet(info, "OLDPWD=")) ? dir : "/");
 	}
@@ -90,8 +90,8 @@ int abed_help(info_t *info)
 	char **arg_array;
 
 	arg_array = info->argv;
-	_puts("help call works. Function not yet implemented \n");
+	abedAllPutInString1("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* temp att_unused workaround */
+		abedAllPutInString1(*arg_array); /* temp att_unused workaround */
 	return (0);
 }

@@ -55,16 +55,16 @@ void abedErrorPrint(info_t *info, char *estr)
  */
 int abedDPrint(int input, int fd)
 {
-	int (*__putchar)(char) = _putchar;
+	int (*_abedCHARPutInString1)(char) = abedCHARPutInString1;
 	int i, count = 0;
 	unsigned int _abs_, current;
 
 	if (fd == STDERR_FILENO)
-		__putchar = abedCharEput;
+		_abedCHARPutInString1 = abedCharEput;
 	if (input < 0)
 	{
 		_abs_ = -input;
-		__putchar('-');
+		_abedCHARPutInString1('-');
 		count++;
 	}
 	else
@@ -74,12 +74,12 @@ int abedDPrint(int input, int fd)
 	{
 		if (_abs_ / i)
 		{
-			__putchar('0' + current / i);
+			_abedCHARPutInString1('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
-	__putchar('0' + current);
+	_abedCHARPutInString1('0' + current);
 	count++;
 
 	return (count);

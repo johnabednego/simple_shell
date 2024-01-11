@@ -57,7 +57,7 @@ ssize_t abedInput_Get(info_t *info)
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
 
-	_putchar(BUF_FLUSH);
+	abedCHARPutInString1(BUF_FLUSH);
 	r = abedBufInput(info, &buf, &len);
 	if (r == -1) /* EOF */
 		return (-1);
@@ -66,10 +66,10 @@ ssize_t abedInput_Get(info_t *info)
 		j = i; /* init new iterator to current buf position */
 		p = buf + i; /* get pointer for return */
 
-		check_chain(info, buf, &j, i, len);
+		abedChainCheckInVars(info, buf, &j, i, len);
 		while (j < len) /* iterate to semicolon or end */
 		{
-			if (is_chain(info, buf, &j))
+			if (abedChainIsInVars(info, buf, &j))
 				break;
 			j++;
 		}
@@ -82,7 +82,7 @@ ssize_t abedInput_Get(info_t *info)
 		}
 
 		*buf_p = p; /* pass back pointer to current command position */
-		return (_strlen(p)); /* return length of current command */
+		return (abedLENstr(p)); /* return length of current command */
 	}
 
 	*buf_p = buf; /* else not a chain, pass back buffer from _abedLineGet() */
@@ -164,7 +164,7 @@ int _abedLineGet(info_t *info, char **ptr, size_t *length)
  */
 void abedHandlerIntSign(__attribute__((unused))int sig_num)
 {
-	_puts("\n");
-	_puts("$ ");
-	_putchar(BUF_FLUSH);
+	abedAllPutInString1("\n");
+	abedAllPutInString1("$ ");
+	abedCHARPutInString1(BUF_FLUSH);
 }
